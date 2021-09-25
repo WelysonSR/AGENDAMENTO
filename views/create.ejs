@@ -21,12 +21,11 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-7">
-                <h1>Cadastro de consulta</h1>
-
+                <h2>Cadastro de consulta</h2>
                 <form action="">
                     <input type="text" name="name" id="name" placeholder="Nome do paciente" class="form-control">
                     <input type="email" name="email" id="email" placeholder="exemplo@email.com" class="form-control">
-                    <input type="text" name="cpf" id="cpf" placeholder="CPF" class="form-control">
+                    <input type="text" name="cpf" id="cpf" placeholder="CPF" class="form-control cpf">
                     <input type="text" name="description" id="description" placeholder="Descrição" class="form-control">
                     <input type="date" name="date" id="date" placeholder="25/03/2004" class="form-control">
                     <input type="time" name="time" id="time" class="form-control">
@@ -58,5 +57,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
     integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
+<script src="jquery.mask.min.js"></script>
+<script>
+    $('.cpf').mask('000.000.000-00', {reverse: true});
+</script>
 
 </html>
