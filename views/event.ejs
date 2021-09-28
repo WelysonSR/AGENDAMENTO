@@ -1,9 +1,16 @@
-<h1>Consulta: <%= appo.cpf %></h1>
+<h1>Consulta: <%= appo.cpf %>
+</h1>
 <hr>
-<h4>Pasiente: <%= appo.name %></h4>
-<h4>Email: <%= appo.email %></h4>
-<h4>CPF: <%= appo.description %></h4>
+<h4>Pasiente: <%= appo.name %>
+</h4>
+<h4>Email: <%= appo.email %>
+</h4>
+<h4>CPF: <%= appo.description %>
+</h4>
 <hr>
 <% if(!appo.finished){ %>
-<button>Finalizar Consulta</button>
+    <form action="/finish" method="POST">
+        <input type="hidden" name="id" value="<%= appo._id %>">
+        <button type="submit">Finalizar Consulta</button>
+    </form>
 <% } %>

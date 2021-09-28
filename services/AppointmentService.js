@@ -42,12 +42,22 @@ class AppointmentService {
         }
     }
 
-    async GetById(id){        
-        try{
-            let event = await Appo.findOne({'_id': id});
+    async GetById(id) {
+        try {
+            let event = await Appo.findOne({ '_id': id });
             return event;
-        }catch(err){
+        } catch (err) {
             console.log(err);
+        }
+    }
+
+    async Finish(id) {
+        try {
+            await Appo.findByIdAndUpdate(id, { finished: true });
+            return true;
+        } catch (err) {
+            console.log(err)
+            return false;
         }
     }
 }

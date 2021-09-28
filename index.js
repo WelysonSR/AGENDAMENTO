@@ -49,4 +49,12 @@ app.post("/create", async (req, res) => {
     }
 });
 
+app.post("/finish", async (req,res) => {
+    let id = req.body.id;
+    let result = await AppointmentService.Finish(id);
+
+    res.redirect("/");
+
+});
+
 app.listen(8080, () => { console.log("App rodando!") });
