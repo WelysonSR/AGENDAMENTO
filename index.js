@@ -9,28 +9,32 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.set('view engine','ejs');
+app.set('view engine', 'ejs');
 
-mongoose.connect("mongodb://localhost:27017/agendamento", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb://localhost:27017/agendamento", { useNewUrlParser: true, useUnifiedTopology: true });
 
 //Route GAT
-app.get("/", (req,res)=>{
+app.get("/", (req, res) => {
     res.render("index");
 });
 
-app.get("/cadastro",(req,res)=>{
+app.get("/cadastro", (req, res) => {
     res.render("create");
 });
 
-app.get("/getcalendar", async (req, res)=>{
+app.get("/getcalendar", async (req, res) => {
     let appointments = await AppointmentService.GetAll(false);
     res.json(appointments);
 });
 
+app.get("/event/:id", async (req, res) => {
+    let appointment = await AppointmentService.GetById(req.params.id);
+    res.render("event",{appo: appointment});
+});
+
 //Route POST
-app.post("/create", async (req, res)=>{
-    //let {name,email,cpf,description,date,time} = req.body;
-    let status =  await appointmentService.Create(
+app.post("/create", async (req, res) => {
+    let status = await appointmentService.Create(
         req.body.name,
         req.body.email,
         req.body.cpf,
@@ -38,11 +42,11 @@ app.post("/create", async (req, res)=>{
         req.body.date,
         req.body.time,
     )
-    if(status){
+    if (status) {
         res.redirect("/");
-    }else{
+    } else {
         res.send("Falha no cadastro!");
-    }    
+    }
 });
 
-app.listen(8080,()=>{console.log("App rodando!")});
+app.listen(8080, () => { console.log("App rodando!") });

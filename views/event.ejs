@@ -1,0 +1,9 @@
+<h1>Consulta: <%= appo.cpf %></h1>
+<hr>
+<h4>Pasiente: <%= appo.name %></h4>
+<h4>Email: <%= appo.email %></h4>
+<h4>CPF: <%= appo.description %></h4>
+<hr>
+<% if(!appo.finished){ %>
+<button>Finalizar Consulta</button>
+<% } %>
