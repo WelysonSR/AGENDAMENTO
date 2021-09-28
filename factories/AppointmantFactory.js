@@ -1,0 +1,22 @@
+class AppointmantFactory {
+    Build(simpleAppointments) {
+
+        let day = simpleAppointments.date.getDate() + 1;
+        let month = simpleAppointments.date.getMonth();
+        let year = simpleAppointments.date.getFullYear();
+        let hour = Number.parseInt(simpleAppointments.time.split(":")[0]);
+        let minutes = Number.parseInt(simpleAppointments.time.split(":")[1]);
+
+        let startDate = new Date(year, month, day, hour, minutes, 0, 0);
+        startDate.setHours(startDate.getHours() - 3);
+
+        let appo = {
+            id: simpleAppointments._id,
+            title: simpleAppointments.name + "-" + simpleAppointments.description,
+            start: startDate,
+            end: startDate
+        }
+        return appo;
+    }
+}
+module.exports = new AppointmantFactory();

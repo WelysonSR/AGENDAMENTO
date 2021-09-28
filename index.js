@@ -2,6 +2,7 @@ const { Console } = require("console");
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const AppointmentService = require("./services/AppointmentService");
 const appointmentService = require("./services/AppointmentService");
 
 app.use(express.static("public"));
@@ -12,7 +13,7 @@ app.set('view engine','ejs');
 
 mongoose.connect("mongodb://localhost:27017/agendamento", {useNewUrlParser: true, useUnifiedTopology: true});
 
-
+//Route GAT
 app.get("/", (req,res)=>{
     res.render("index");
 });
@@ -21,6 +22,12 @@ app.get("/cadastro",(req,res)=>{
     res.render("create");
 });
 
+app.get("/getcalendar", async (req, res)=>{
+    let appointments = await AppointmentService.GetAll(false);
+    res.json(appointments);
+});
+
+//Route POST
 app.post("/create", async (req, res)=>{
     //let {name,email,cpf,description,date,time} = req.body;
     let status =  await appointmentService.Create(
@@ -37,6 +44,5 @@ app.post("/create", async (req, res)=>{
         res.send("Falha no cadastro!");
     }    
 });
-
 
 app.listen(8080,()=>{console.log("App rodando!")});

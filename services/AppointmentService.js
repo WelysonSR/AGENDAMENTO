@@ -1,10 +1,11 @@
 let appointment = require("../models/Appointment");
 let mongoose = require("mongoose");
+let AppointmantFactory = require("../factories/AppointmantFactory");
 
-const Appo = mongoose.model("Appointment",appointment)
+const Appo = mongoose.model("Appointment", appointment)
 
 class AppointmentService {
-    async Create(name,email,description,cpf,date,time){
+    async Create(name, email, description, cpf, date, time) {
         let newAppo = new Appo({
             name,
             email,
@@ -15,13 +16,30 @@ class AppointmentService {
             finished: false
         });
 
-        try{
+        try {
             await newAppo.save();
             return true
-        }catch(err){
+        } catch (err) {
             console.log(err);
             return false;
-        }        
+        }
+    }
+
+    async GetAll(showFinished) {
+        if (showFinished) {
+            return await Appo.find();
+        } else {
+            let appos = await Appo.find({ 'finished': false });
+            let appointments = [];
+
+            appos.forEach(appointment => {
+                if (appointment.date != undefined) {
+                    appointments.push(AppointmantFactory.Build(appointment));
+                }
+            });
+
+            return appointments;
+        }
     }
 }
 
