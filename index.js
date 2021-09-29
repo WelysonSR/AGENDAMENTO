@@ -33,9 +33,6 @@ app.get("/event/:id", async (req, res) => {
 });
 
 app.get("/list", async (req,res) =>{
-
-    //await AppointmentService.Search("104.131.995-92")
-
     let appos = await AppointmentService.GetAll(true);
     res.render("list", {appos});
 });
@@ -69,5 +66,13 @@ app.post("/finish", async (req,res) => {
     res.redirect("/");
 
 });
+
+let pollTime = 60.000 * 5;
+setInterval(async ()=>{
+
+    await AppointmentService.SendNotification();
+
+},pollTime);
+
 
 app.listen(8080, () => { console.log("App rodando!") });
