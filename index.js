@@ -39,7 +39,12 @@ app.get("/list", async (req,res) =>{
 
 app.get("/searchresult", async (req,res)=>{
     let appos = await AppointmentService.Search(req.query.search);
-    res.render("list", {appos});
+    if(appos == undefined || appos == "" || appos == " "){
+        res.redirect("/list");
+    }else{
+        res.render("list", {appos});
+    }
+
 })
 
 //Route POST
