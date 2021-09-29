@@ -1,17 +1,42 @@
-<h2>Consultas:</h2>
-<hr>
+<%- include ('partials/header.ejs')%>
+<%- include ('partials/navbar.ejs')%>
 
-<form action="/searchresult" method="get">
-    <input type="search" name="search" id="search" placeholder="Digite o e-mail ou cpf do cliente">
-    <button type="submit">Pesquisar</button>
-</form>
+    <div class="container">
 
-<% appos.forEach(appo => { %>
+        <div class="card">
+            <div class="card-header">
+                <h2>Consultas</h2>
+            </div>
+            <div class="card-body">
+                <form action="/searchresult" method="get">
+                    <input type="search" name="search" id="search" placeholder="Digite o e-mail ou cpf do cliente"
+                        class="form-control" />
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                </form>
 
-    <h3>Consulta: <%= appo.description %></h3>    
-    <h4>Pasiente: <%= appo.name %></h4>
-    <h4>Email: <%= appo.email %></h4>
-    <h4>CPF: <%= appo.cpf %></h4>
-    <hr>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Consulta</th>
+                            <th>Pasiente</th>
+                            <th>Email</th>
+                            <th>CPF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% appos.forEach(appo=> { %>
+                            <tr>
+                                <td><%= appo.description %></td>
+                                <td><%= appo.name %></td>
+                                <td><%= appo.email %></td>
+                                <td><%= appo.cpf %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
 
-<% }) %>
+            </div>
+        </div>        
+    </div>
+
+<%- include ('partials/footer.ejs')%>
